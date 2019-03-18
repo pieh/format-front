@@ -68,6 +68,7 @@ export const handleAuthentication = callback => {
   }
 
   auth0.parseHash((err, authResult) => {
+    console.log("parsing hash", authResult)
     if (authResult && authResult.accessToken && authResult.idToken) {
       setSession(authResult)
       callback()
@@ -89,6 +90,7 @@ export const isAuthenticated = () => {
 
 export const getUserInfo = () => {
   return new Promise((resolve, reject) => {
+    console.log("getting user info")
     // If the user has already logged in, don’t bother fetching again.
     if (profile) {
       emitProfile(profile)
@@ -97,6 +99,7 @@ export const getUserInfo = () => {
     }
 
     const accessToken = getAccessToken()
+    console.log("access token", accessToken)
 
     if (!isAuthenticated()) {
       emitProfile(false)
@@ -104,7 +107,9 @@ export const getUserInfo = () => {
       return
     }
 
+    console.log("aaaa")
     auth0.client.userInfo(accessToken, (err, userProfile) => {
+      console.log("bbbb", userProfile)
       if (err) {
         emitProfile(false)
         reject(err)
