@@ -1,3 +1,10 @@
 import React from "react"
+import PrList from "../components/pr-list"
 
-export default () => <div>Hello world!</div>
+export default () => {
+  if (PrList) {
+    return <PrList />
+  }
+
+  return <React.Fragment />
+}
